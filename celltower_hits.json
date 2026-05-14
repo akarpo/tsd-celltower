@@ -1,0 +1,222 @@
+[
+  {
+    "meeting_date": "20210601",
+    "meeting_name": "Board of Education Workshop 6:00 PM",
+    "meeting_unique": "C3DGYJ461824",
+    "item_unique": "C3DGZA46183C",
+    "item_title": "AT &amp; T Cell Tower Proposal",
+    "item_action": "Reports",
+    "has_attachment": false,
+    "matched": "Cell Tower"
+  },
+  {
+    "meeting_date": "20210615",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "C3TQWG65499F",
+    "item_unique": "C3TQY56549D4",
+    "item_title": "CONSIDERATION: AT&amp;T Cell Tower",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Cell Tower"
+  },
+  {
+    "meeting_date": "20210720",
+    "meeting_name": "Regular Meeting of the Board of Education 9:30 AM",
+    "meeting_unique": "C4WG594219CB",
+    "item_unique": "C4WG6G4219F4",
+    "item_title": "CONSIDERATION: Copier Lease Approval",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": " Lease"
+  },
+  {
+    "meeting_date": "20210907",
+    "meeting_name": "Board of Education Workshop 6:00 PM",
+    "meeting_unique": "C6ESYY72838C",
+    "item_unique": "C6ESZ9728397",
+    "item_title": "Troy Career Center Lease",
+    "item_action": "Reports",
+    "has_attachment": true,
+    "matched": " Lease"
+  },
+  {
+    "meeting_date": "20210921",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "C6UNYF5FEDA7",
+    "item_unique": "C6UNYV5FEDEF",
+    "item_title": "Troy Career Center Lease",
+    "item_action": "Action (Consent)",
+    "has_attachment": true,
+    "matched": " Lease"
+  },
+  {
+    "meeting_date": "20220614",
+    "meeting_name": "Board of Education Workshop 6:00 PM",
+    "meeting_unique": "CF7GV7459B69",
+    "item_unique": "CF7GYR45F009",
+    "item_title": "Wireless Controller Upgrade",
+    "item_action": "",
+    "has_attachment": true,
+    "matched": "Wireless"
+  },
+  {
+    "meeting_date": "20220621",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "CFDR596C497A",
+    "item_unique": "CFG3FR06B310",
+    "item_title": "CONSIDERATION: Wireless Controller Upgrade",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Wireless"
+  },
+  {
+    "meeting_date": "20230110",
+    "meeting_name": "Board of Education Workshop 6:00 PM",
+    "meeting_unique": "CMTJCC4C6101",
+    "item_unique": "CMTJCG4C6105",
+    "item_title": "BP 9951 - 2023 THS Turf Replacement &amp; Boulan Park Track Replacement",
+    "item_action": "Information",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20231205",
+    "meeting_name": "Board of Education Workshop 7:00 P.M. (FOLLOWING SPECIAL MEETING)",
+    "meeting_unique": "CY2QAS6790B7",
+    "item_unique": "CY3QRS6A4A08",
+    "item_title": "Food Service - Boulan &amp; Larson Equipment Replacement",
+    "item_action": "",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20231212",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "CYAJ2S4AEC43",
+    "item_unique": "CYAJ4Y4B37B9",
+    "item_title": "CONSIDERATION: Food Service \u2013 Boulan &amp; Larson Equipment Replacement",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20240305",
+    "meeting_name": "Board of Education Workshop 6:00 P.M.",
+    "meeting_unique": "D2VQH968A71C",
+    "item_unique": "D2VQHN68A72B",
+    "item_title": "Cellular WAN",
+    "item_action": "Information",
+    "has_attachment": false,
+    "matched": "Cellular"
+  },
+  {
+    "meeting_date": "20240319",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "D35LBN553E71",
+    "item_unique": "D3ANC55F3B04",
+    "item_title": "CONSIDERATION: Cellular WAN",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Cellular"
+  },
+  {
+    "meeting_date": "20240620",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "D68LKV56FC14",
+    "item_unique": "D68LLR56FC36",
+    "item_title": "CONSIDERATION: Serving Lines for Boulan, Larson and Wass Elementary School",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20260203",
+    "meeting_name": "Board of Education Workshop 6:00 PM",
+    "meeting_unique": "DQJK9C50A05E",
+    "item_unique": "DQJK9L50A067",
+    "item_title": "Abatement \u2013 Boulan Park Middle School",
+    "item_action": "Discussion",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20260224",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "DQJK9Z50A633",
+    "item_unique": "DQJKB250A654",
+    "item_title": "CONSIDERATION: Abatement \u2013 Boulan Park Middle School",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20260303",
+    "meeting_name": "Board of Education Workshop 6:00 PM",
+    "meeting_unique": "DRLT5D74D946",
+    "item_unique": "DRLT5L74D94F",
+    "item_title": "Boulan Park Building Renovation Project",
+    "item_action": "Discussion",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20260317",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "DRLTJU77A713",
+    "item_unique": "DRLTKL77A72E",
+    "item_title": "CONSIDERATION: Boulan Park Building Renovation Project",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20260407",
+    "meeting_name": "Board of Education Workshop 6:15 PM",
+    "meeting_unique": "DS9LBG55BDB5",
+    "item_unique": "DS9LBN55BE78",
+    "item_title": "Boulan Park Renovation Project (Rec 2 of 2)",
+    "item_action": "Information",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20260407",
+    "meeting_name": "Special Meeting of the Board of Education 6:00 PM",
+    "meeting_unique": "DSHMVU5D2395",
+    "item_unique": "DSHMXX5D6E13",
+    "item_title": "CONSIDERATION: Easement Agreement",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Easement"
+  },
+  {
+    "meeting_date": "20260407",
+    "meeting_name": "Special Meeting of the Board of Education 6:00 PM",
+    "meeting_unique": "DSHMVU5D2395",
+    "item_unique": "DSVKRY5331C4",
+    "item_title": "CONSIDERATION: Declaring Necessity to Acquire Highway and Sidewalk Easement and to Authorize Legal Counsel to Initiate Condemnation Proceedings to Acquire Easements for Smith Middle School Project",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Easement"
+  },
+  {
+    "meeting_date": "20260421",
+    "meeting_name": "Regular Meeting of the Board of Education 7:00 PM",
+    "meeting_unique": "DSWQXY6B83BF",
+    "item_unique": "DSWQYX6B83E0",
+    "item_title": "CONSIDERATION: Boulan Park Renovation Project (Rec 2 of 2)",
+    "item_action": "Action",
+    "has_attachment": true,
+    "matched": "Boulan"
+  },
+  {
+    "meeting_date": "20260428",
+    "meeting_name": "Board of Education Workshop 6:00 PM",
+    "meeting_unique": "DSWSCD7204AE",
+    "item_unique": "DSWSCH7204B2",
+    "item_title": "Boulan Park Building Renovation Project \u2013 Rec 3 of 3",
+    "item_action": "Information",
+    "has_attachment": true,
+    "matched": "Boulan"
+  }
+]

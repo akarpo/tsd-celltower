@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Boulan Park area — three parcels (Troy, MI)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif}
+  #map{position:absolute;top:0;bottom:0;left:0;right:0}
+  .panel{background:#fff;padding:12px 14px;font-size:13px;line-height:1.45;
+    box-shadow:0 1px 6px rgba(0,0,0,.45);border-radius:8px;max-width:340px}
+  .panel h1{font-size:14px;margin:0 0 2px}
+  .panel .sub{color:#555;font-size:11.5px;margin:0 0 9px}
+  .item{display:flex;align-items:flex-start;gap:8px;margin:7px 0}
+  .sw{flex:0 0 auto;width:15px;height:15px;margin-top:1px;border:1px solid #2a2a2a}
+  .sw.dot{border-radius:50%}
+  .item .nm{font-weight:600}
+  .item .meta{color:#555;font-size:11.5px}
+  .panel .note{margin-top:9px;padding-top:8px;border-top:1px solid #e2e2e2;
+    font-size:11.5px;color:#444}
+  .leaflet-popup-content{font-size:12.5px;line-height:1.55}
+  .leaflet-popup-content b{font-size:13px}
+  .leaflet-popup-content .k{color:#666}
+</style>
+</head>
+<body>
+<div id="map"></div>
+<script>
+// Boulan Park area, Troy MI — three adjacent parcels, Oakland County GIS.
+// Owner *names* are redacted in the county public layer; ownership below is
+// inferred from each parcel's tax-mailing address.
+var data = {"type":"FeatureCollection","features":[
+{"type":"Feature","properties":{"kind":"parcel","name":"Boulan Park Middle School","owner":"Troy School District","color":"#1e90ff","keypin":"2020100003","site":"3570 NORTHFIELD PKWY","site_city":"TROY","mailing":"4400 LIVERNOIS RD","assessed":0,"taxable":0,"area_acres":15.97},"geometry":{"type":"Polygon","coordinates":[[[-83.17758714302087,42.571166346290696],[-83.17764740727065,42.57251220044994],[-83.179601591608,42.57246047641194],[-83.17994777921348,42.57245130466138],[-83.17989027453436,42.57121714932518],[-83.1798036362366,42.569364471610506],[-83.17969237181289,42.569368107583536],[-83.17914835744752,42.569385882662694],[-83.17881456131448,42.56939678725462],[-83.1784807624311,42.56940769189467],[-83.17750403358916,42.569439591026914],[-83.17750781704387,42.569520537453926],[-83.17750871993346,42.56952052896551],[-83.17754016301443,42.57017884272337],[-83.17758714302087,42.571166346290696]]]}},
+{"type":"Feature","properties":{"kind":"parcel","name":"Athletic track","owner":"Troy School District","color":"#2ca02c","keypin":"2020227037","site":null,"site_city":null,"mailing":"4400 LIVERNOIS RD","assessed":0,"taxable":0,"area_acres":5.75},"geometry":{"type":"Polygon","coordinates":[[[-83.17526663415714,42.57069522122338],[-83.1752755235622,42.57118910994922],[-83.17758714302087,42.571166346290696],[-83.17754016301443,42.57017884272337],[-83.1770479602566,42.57018369539034],[-83.17655579883112,42.57018854267468],[-83.17655270051505,42.57002392679072],[-83.17603433323028,42.570029031046836],[-83.1755331923373,42.570033964630234],[-83.17518795600522,42.57003735954906],[-83.17519684438366,42.5705312519922],[-83.17504132247164,42.570532778078785],[-83.17504391029738,42.570698009052784],[-83.17526663415714,42.57069522122338]]]}},
+{"type":"Feature","properties":{"kind":"parcel","name":"City of Troy — Boulan Park","owner":"City of Troy","color":"#9467bd","keypin":"2020226092","site":"3671 CROOKS RD","site_city":"TROY","mailing":"500 W BIG BEAVER RD","assessed":0,"taxable":0,"area_acres":47.14},"geometry":{"type":"Polygon","coordinates":[[[-83.17009036652243,42.57371059824638],[-83.17009037815397,42.57371125385146],[-83.1702100023123,42.57371160291602],[-83.17021150173574,42.57371160689808],[-83.17060990734078,42.573712763019884],[-83.17067412036089,42.57371295022095],[-83.17070539849998,42.57371304187247],[-83.17114194789765,42.57371443538519],[-83.17141483087055,42.57371530585261],[-83.17141513407347,42.57371530710222],[-83.1717898221198,42.57371641378237],[-83.1720693586455,42.57371723883964],[-83.17207018201547,42.57371724132746],[-83.1721632089436,42.57371751542],[-83.17233131735047,42.57371801045633],[-83.17253715374494,42.57371861641402],[-83.17328488674194,42.57372105229774],[-83.17365615777956,42.5737221565571],[-83.17402742866008,42.573723256091846],[-83.1743794625529,42.57372430076982],[-83.17484551960088,42.573724903153945],[-83.17531465420747,42.57372708547696],[-83.17535924170868,42.573727216872086],[-83.17572683753649,42.57372830018181],[-83.17609810366771,42.57372939660571],[-83.17646744395223,42.57373048135631],[-83.17689551920851,42.57373173915414],[-83.17770705044911,42.573732090686406],[-83.17764740727065,42.57251220044994],[-83.17758714302087,42.571166346290696],[-83.1752755235622,42.57118910994922],[-83.17505369616093,42.57119129035099],[-83.17455254345468,42.57119621959463],[-83.17410707100441,42.57120059711216],[-83.1736616022086,42.57120497731741],[-83.17321613321688,42.57120935033437],[-83.17277066195358,42.57121372527448],[-83.17232519042722,42.571218096538274],[-83.17187971887199,42.57122246430392],[-83.17143425100154,42.57122683317698],[-83.17098878050915,42.5712311974708],[-83.17054331244616,42.57123556637166],[-83.17009784064092,42.57123992716876],[-83.16965236895675,42.5712442890358],[-83.16920689821454,42.57124864636111],[-83.1687614249632,42.57125300560696],[-83.16876462286491,42.571391828843666],[-83.16877416964857,42.57180649406594],[-83.16808226887572,42.57181378156277],[-83.1680897589007,42.57197615184174],[-83.16901565027251,42.57196840206763],[-83.16906198004637,42.57196533767898],[-83.1691082924727,42.5719686539405],[-83.16915371294158,42.57197828822459],[-83.16919738368769,42.57199405858786],[-83.1692384799892,42.572015667207076],[-83.1692762257427,42.57204270600357],[-83.16930990811981,42.57207466434983],[-83.16933889102903,42.572110938712626],[-83.16936262712825,42.572150844050825],[-83.16938066816137,42.57219362675232],[-83.16939267342357,42.57223847886601],[-83.16940220115994,42.572732362539206],[-83.16941824804341,42.57279606150519],[-83.16944107155709,42.57285765816061],[-83.16947040542637,42.572916433877104],[-83.16950590742243,42.572971702937274],[-83.16954716335489,42.57302282053476],[-83.16959369190405,42.57306919029699],[-83.16964495023629,42.57311027124285],[-83.16970034033712,42.57314558409415],[-83.16975921598802,42.5731747168672],[-83.16982089030574,42.57319732967931],[-83.1698846437558,42.57321315871407],[-83.16994973254721,42.57322201929921],[-83.17001539730995,42.573223808061144],[-83.17008087195437,42.573218504130956],[-83.17009036652243,42.57371059824638]]]}},
+{"type":"Feature","properties":{"kind":"tower","name":"AT&T cell tower"},"geometry":{"type":"Point","coordinates":[-83.177833,42.57175]}},
+{"type":"Feature","properties":{"kind":"probe","name":"Athletic track — probe point"},"geometry":{"type":"Point","coordinates":[-83.17639545250931,42.57059985638844]}},
+{"type":"Feature","properties":{"kind":"probe","name":"Boulan Park — probe point"},"geometry":{"type":"Point","coordinates":[-83.17557131025448,42.57245274231579]}}
+]};
+
+// --- base layers ------------------------------------------------------------
+var sat = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {maxZoom:21,attribution:'Esri World Imagery'});
+var streets = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  {maxZoom:19,attribution:'&copy; OpenStreetMap contributors'});
+var map = L.map('map',{layers:[sat]});
+
+// --- parcels ----------------------------------------------------------------
+function parcelStyle(f){
+  return {color:f.properties.color,weight:3,
+          fillColor:f.properties.color,fillOpacity:0.28};
+}
+function parcelPopup(f,l){
+  var p=f.properties;
+  l.bindPopup(
+    '<b>'+p.name+'</b><br>'+
+    '<span class="k">Owner (inferred):</span> '+p.owner+'<br>'+
+    '<span class="k">KEYPIN:</span> '+p.keypin+'<br>'+
+    '<span class="k">Site address:</span> '+(p.site?p.site+', '+p.site_city:'&mdash; none on file')+'<br>'+
+    '<span class="k">Tax-mailing address:</span> '+p.mailing+'<br>'+
+    '<span class="k">Area:</span> '+p.area_acres.toFixed(2)+' ac<br>'+
+    '<span class="k">Assessed / taxable:</span> $'+p.assessed+' / $'+p.taxable+
+    ' <em>(tax-exempt &rarr; publicly owned)</em>');
+  l.bindTooltip(p.name,{sticky:true});
+}
+// one toggleable layer per parcel
+var byKeypin={};
+data.features.filter(f=>f.properties.kind==='parcel').forEach(function(f){
+  byKeypin[f.properties.keypin]=L.geoJSON(f,{style:parcelStyle,onEachFeature:parcelPopup}).addTo(map);
+});
+
+// --- points -----------------------------------------------------------------
+var points=L.geoJSON(data,{
+  filter:f=>f.properties.kind==='tower'||f.properties.kind==='probe',
+  pointToLayer:function(f,ll){
+    var tower=f.properties.kind==='tower';
+    return L.circleMarker(ll,{radius:tower?9:5,color:'#fff',
+      weight:2,fillColor:tower?'#e6194b':'#222',
+      fillOpacity:1,opacity:tower?1:0.9});
+  },
+  onEachFeature:(f,l)=>{l.bindPopup('<b>'+f.properties.name+'</b>');
+                       l.bindTooltip(f.properties.name,{direction:'top',offset:[0,-6]});}
+}).addTo(map);
+
+// --- fit / scale / layer control -------------------------------------------
+var grp=L.featureGroup(Object.values(byKeypin));
+map.fitBounds(grp.getBounds(),{padding:[55,55]});
+L.control.scale({imperial:true,metric:true}).addTo(map);
+L.control.layers(
+  {'Satellite (Esri)':sat,'Street map (OSM)':streets},
+  {'Boulan Park Middle School (TSD)':byKeypin['2020100003'],
+   'Athletic track (TSD)':byKeypin['2020227037'],
+   'City of Troy — Boulan Park':byKeypin['2020226092'],
+   'Tower + probe points':points}
+).addTo(map);
+
+// --- legend / info panel ----------------------------------------------------
+var info=L.control({position:'topright'});
+info.onAdd=function(){
+  var d=L.DomUtil.create('div','panel');
+  d.innerHTML=
+    '<h1>Boulan Park area — three parcels</h1>'+
+    '<p class="sub">Troy, MI &middot; Oakland County GIS &middot; click a parcel for full detail</p>'+
+    '<div class="item"><span class="sw" style="background:#1e90ff"></span><div>'+
+      '<div class="nm">Boulan Park Middle School</div>'+
+      '<div class="meta">Troy School District &middot; KEYPIN 2020100003 &middot; 15.97 ac<br>'+
+      '3570 Northfield Pkwy &middot; mailing 4400 Livernois Rd</div></div></div>'+
+    '<div class="item"><span class="sw" style="background:#2ca02c"></span><div>'+
+      '<div class="nm">Athletic track</div>'+
+      '<div class="meta">Troy School District &middot; KEYPIN 2020227037 &middot; 5.75 ac<br>'+
+      'no site address &middot; mailing 4400 Livernois Rd (same as the school)</div></div></div>'+
+    '<div class="item"><span class="sw" style="background:#9467bd"></span><div>'+
+      '<div class="nm">City of Troy — Boulan Park</div>'+
+      '<div class="meta">City of Troy &middot; KEYPIN 2020226092 &middot; 47.14 ac<br>'+
+      '3671 Crooks Rd &middot; mailing 500 W Big Beaver Rd (Troy City Hall)</div></div></div>'+
+    '<div class="item"><span class="sw dot" style="background:#e6194b"></span>'+
+      '<span>AT&amp;T cell tower (on-site coordinates)</span></div>'+
+    '<div class="item"><span class="sw dot" style="background:#222"></span>'+
+      '<span>Probe points used to look up the two new parcels</span></div>'+
+    '<p class="note">All three parcels are tax-exempt (assessed/taxable $0), i.e. '+
+      'publicly owned. Owner <em>names</em> are redacted in the county public layer; '+
+      'ownership shown is inferred from each parcel&rsquo;s tax-mailing address. '+
+      'The tower sits on the school-district middle-school parcel — the track is a '+
+      'separate TSD parcel, and the park proper is City of Troy.</p>';
+  L.DomEvent.disableClickPropagation(d);
+  return d;
+};
+info.addTo(map);
+</script>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AT&T Cell Tower at Boulan Park Middle School — an investigation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#0e1116; --panel:#161b22; --ink:#e6edf3; --mute:#9aa7b4;
+    --line:#2a313c; --accent:#4aa3ff; --warn:#e6194b; --ok:#3fb950;
+    --tsd:#1e90ff; --track:#2ca02c; --city:#9467bd;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--ink);
+    font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+    overflow:hidden}
+  /* progress + counter */
+  #bar{position:fixed;top:0;left:0;height:3px;background:var(--accent);
+    width:0;transition:width .25s ease;z-index:30}
+  #counter{position:fixed;bottom:14px;right:18px;color:var(--mute);
+    font-size:13px;font-variant-numeric:tabular-nums;z-index:30}
+  #hint{position:fixed;bottom:14px;left:18px;color:var(--mute);font-size:12px;z-index:30}
+  /* slides */
+  .slide{position:fixed;inset:0;display:none;flex-direction:column;
+    justify-content:center;padding:6vh 8vw;animation:fade .35s ease}
+  .slide.on{display:flex}
+  @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .kicker{color:var(--accent);font-size:14px;font-weight:600;letter-spacing:.08em;
+    text-transform:uppercase;margin-bottom:14px}
+  h1{font-size:clamp(28px,4.6vw,56px);line-height:1.1;font-weight:800;
+    letter-spacing:-.02em}
+  h2{font-size:clamp(24px,3.4vw,40px);line-height:1.15;font-weight:750;
+    letter-spacing:-.015em;margin-bottom:22px}
+  p,li{font-size:clamp(15px,1.6vw,20px);line-height:1.55;color:var(--ink)}
+  .sub{color:var(--mute);font-size:clamp(15px,1.7vw,21px);margin-top:18px;max-width:60ch}
+  ul{margin:6px 0 0 0;padding-left:1.2em}
+  li{margin:9px 0}
+  li::marker{color:var(--accent)}
+  strong{color:#fff}
+  .mute{color:var(--mute)}
+  .grid{display:grid;gap:16px;margin-top:8px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:18px 20px}
+  .card h3{font-size:16px;margin-bottom:6px}
+  .card .big{font-size:clamp(22px,2.6vw,34px);font-weight:800;letter-spacing:-.01em}
+  .card p{font-size:14.5px;color:var(--mute);margin-top:4px}
+  .tag{display:inline-block;font-size:12.5px;font-weight:700;padding:3px 9px;
+    border-radius:999px;border:1px solid var(--line)}
+  .tag.tsd{color:var(--tsd);border-color:var(--tsd)}
+  .tag.track{color:var(--track);border-color:var(--track)}
+  .tag.city{color:var(--city);border-color:var(--city)}
+  .tag.ok{color:var(--ok);border-color:var(--ok)}
+  .tag.warn{color:var(--warn);border-color:var(--warn)}
+  .quote{border-left:3px solid var(--accent);padding:6px 0 6px 18px;
+    color:var(--ink);font-style:italic;margin-top:14px;max-width:64ch}
+  .vote{display:flex;gap:14px;margin-top:18px;flex-wrap:wrap}
+  .vote .v{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:14px 20px;min-width:140px}
+  .vote .v .n{font-size:34px;font-weight:800}
+  .vote .v.y .n{color:var(--ok)} .vote .v.n .n{color:var(--warn)}
+  .vote .v small{color:var(--mute);display:block;margin-top:2px;font-size:12.5px}
+  .coord{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;
+    background:var(--panel);border:1px solid var(--line);border-radius:6px;
+    padding:1px 7px;font-size:.92em}
+  a{color:var(--accent)}
+  .files{columns:2;column-gap:34px;margin-top:8px}
+  .files li{break-inside:avoid;font-size:15px}
+  iframe{width:100%;height:46vh;border:1px solid var(--line);border-radius:12px;
+    margin-top:8px;background:#000}
+  .legend{display:flex;gap:18px;margin-top:12px;flex-wrap:wrap;font-size:14px}
+  .legend span{display:flex;align-items:center;gap:7px;color:var(--mute)}
+  .sw{width:13px;height:13px;border-radius:3px;display:inline-block}
+  .foot{margin-top:26px;color:var(--mute);font-size:13.5px}
+  nav{position:fixed;bottom:10px;left:50%;transform:translateX(-50%);
+    display:flex;gap:8px;z-index:30}
+  nav button{background:var(--panel);color:var(--ink);border:1px solid var(--line);
+    border-radius:8px;padding:6px 12px;font-size:14px;cursor:pointer}
+  nav button:hover{border-color:var(--accent)}
+</style>
+</head>
+<body>
+<div id="bar"></div>
+
+<!-- 1 — TITLE -->
+<section class="slide on">
+  <div class="kicker">Troy, Michigan · public-records investigation</div>
+  <h1>The AT&amp;T cell tower at<br>Boulan Park Middle School</h1>
+  <p class="sub">Who owns the land a new cell tower sits on — and how it came to be
+    permitted next to a public middle school and a city park. A trace through
+    county GIS, municipal permits, and Board of Education records.</p>
+  <p class="foot">Compiled 2026-05 · all sources are public records · repo: <strong>tsd-celltower</strong></p>
+</section>
+
+<!-- 2 — THE QUESTION -->
+<section class="slide">
+  <div class="kicker">The question</div>
+  <h2>A new tower appeared. Two questions.</h2>
+  <p>A newly-constructed AT&amp;T cell tower was inspected on site at
+    <span class="coord">42°34'18.3"N 83°10'40.2"W</span> —
+    decimal <span class="coord">42.57175, -83.17783</span>.</p>
+  <div class="grid g2" style="margin-top:22px">
+    <div class="card"><h3>1 · Who owns the land?</h3>
+      <p>The parcel of record, and the public body behind it.</p></div>
+    <div class="card"><h3>2 · How was it allowed here?</h3>
+      <p>Next to a middle school and a public park — what approvals exist?</p></div>
+  </div>
+</section>
+
+<!-- 3 — LOCATION / PARCEL -->
+<section class="slide">
+  <div class="kicker">Finding 1 · Location</div>
+  <h2>The tower stands on Troy School District land</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Parcel</h3>
+      <div class="big">2020100003</div>
+      <p>Oakland County KEYPIN · Troy 88-20-20-100-003 · 3570 Northfield Pkwy</p></div>
+    <div class="card"><h3>Tax status</h3>
+      <div class="big">$0 / $0</div>
+      <p>Assessed / taxable — tax-exempt, i.e. publicly owned</p></div>
+    <div class="card"><h3>Owner mailing</h3>
+      <div class="big">4400 Livernois</div>
+      <p>Troy School District administration address</p></div>
+  </div>
+  <p class="sub">Verified independently: the deed's metes-and-bounds legal
+    description was re-traced and overlaid on the official county polygon —
+    traverse closes to <strong>0.16 ft</strong>, area <strong>16.00 vs 15.98 ac</strong>,
+    and the tower coordinates fall <strong>inside both polygons</strong>.</p>
+</section>
+
+<!-- 4 — THREE PARCELS + MAP -->
+<section class="slide">
+  <div class="kicker">Finding 1 · The neighborhood of parcels</div>
+  <h2>Three parcels — two owners</h2>
+  <div class="legend">
+    <span><i class="sw" style="background:var(--tsd)"></i>Boulan Park Middle School — TSD — 15.97 ac — KEYPIN 2020100003</span>
+    <span><i class="sw" style="background:var(--track)"></i>Athletic track — TSD — 5.75 ac — KEYPIN 2020227037</span>
+    <span><i class="sw" style="background:var(--city)"></i>Boulan Park — City of Troy — 47.14 ac — KEYPIN 2020226092</span>
+  </div>
+  <iframe src="boulan_parcels.html" title="Three-parcel map" loading="lazy"></iframe>
+  <p class="foot">Parcels point-queried against the Oakland County GIS. The school
+    district owns the middle-school parcel <em>and</em> the track (separate KEYPINs,
+    same 4400 Livernois mailing); the City of Troy owns the park proper.
+    Interactive map: <a href="boulan_parcels.html">boulan_parcels.html</a>.</p>
+</section>
+
+<!-- 5 — FIBER PERMIT -->
+<section class="slide">
+  <div class="kicker">Finding 2 · The paper trail begins</div>
+  <h2>The fiber permit names the tower</h2>
+  <p>Troy's "Permits Issued" database contains <strong>Metro Act ROW permit
+    PROW2023-347</strong>, issued <strong>2023-10-05</strong>, applicant
+    <strong>Jeff Davis</strong> — a recurring AT&amp;T fiber contractor:</p>
+  <div class="quote">"Directional bore and place 2" PC from the pole at Wattles and
+    Northfield Pkwy south for approximately 1950'. Set 2 new hand holes in ROW.
+    <strong>To provide service to new proposed AT&amp;T mobility cell site.</strong>"</div>
+  <p class="sub">This is the fiber backhaul for the tower — the first public
+    document that ties AT&amp;T infrastructure to this exact location.</p>
+</section>
+
+<!-- 6 — THE BOARD APPROVAL -->
+<section class="slide">
+  <div class="kicker">Finding 3 · The decision</div>
+  <h2>The Board of Education approved it — <span class="tag ok">Resolution 21-064</span></h2>
+  <p>Every TSD Board of Education meeting since 2021-01-01 was crawled —
+    <strong>150 meetings, 1,684 agenda items</strong>. The lease surfaces twice:
+    introduced <strong>2021-06-01</strong> as "AT &amp; T Cell Tower Proposal" (report only),
+    then voted <strong>2021-06-15</strong>.</p>
+  <div class="vote">
+    <div class="v y"><div class="n">4</div><small>YES — Anne, Gottlieb,<br>Philippart, Wilson</small></div>
+    <div class="v n"><div class="n">2</div><small>NO — Hauff, Schmidt</small></div>
+    <div class="v"><div class="n">1</div><small>ABSENT — Hammond</small></div>
+  </div>
+  <p class="foot">Outcome confirmed against the official June-15-2021
+    regular-meeting minutes. Source: TSD BoardDocs · packet + minutes in
+    <span class="coord">celltower_docs/</span>.</p>
+</section>
+
+<!-- 7 — WHAT THE RESOLUTION SAYS -->
+<section class="slide">
+  <div class="kicker">Finding 3 · What was approved</div>
+  <h2>What Resolution 21-064 actually authorizes</h2>
+  <ul>
+    <li>A ground lease to <strong>New Cingular Wireless PCS, LLC (AT&amp;T)</strong>
+      of <strong>~2,500 sq ft</strong> at the <strong>north (wooded) end</strong> of the
+      Boulan Park Middle School site.</li>
+    <li>The <strong>Superintendent (or designee) is authorized to negotiate, finalize,
+      and execute</strong> the ground lease and all incidental documents.</li>
+    <li>The packet leaned heavily on RF-safety framing — it included American
+      Cancer Society notes, RF-radiation articles, "5G — no adverse health
+      effects" material, plus a photo-simulation and propagation maps.</li>
+  </ul>
+  <p class="sub">The resolution approves the lease in principle and hands
+    execution to administration — the negotiated terms live in an "Attachment B"
+    that travels separately.</p>
+</section>
+
+<!-- 8 — THE REVENUE GAP -->
+<section class="slide">
+  <div class="kicker">Open question · The money</div>
+  <h2>How much is the District paid? <span class="tag warn">Not in the public record</span></h2>
+  <ul>
+    <li>The resolution references <strong>"Attachment B — General Parameters of Lease
+      Agreement,"</strong> but that attachment was <strong>never uploaded to BoardDocs</strong>
+      — only the placeholder word "Attached" appears.</li>
+    <li><strong>No dollar figure</strong> appears anywhere in the public packet, the
+      lease presentation, or the meeting minutes (which <em>do</em> itemize other
+      dollar amounts that night).</li>
+    <li>The financial terms were most likely settled in the <strong>2021-06-15
+      closed session</strong> — whose minutes file is sealed / returns 404.</li>
+  </ul>
+  <p class="sub">→ The revenue figure is a <strong>FOIA target</strong>: the executed
+    AT&amp;T ground lease, Attachment B to Res. 21-064, and the closed-session minutes.</p>
+</section>
+
+<!-- 9 — WHY IT WAS LEGALLY ALLOWED -->
+<section class="slide">
+  <div class="kicker">Finding 2 · The legal frame</div>
+  <h2>Why a tower next to a school is legal</h2>
+  <div class="grid g3">
+    <div class="card"><h3>Telecom Act of 1996 · §704</h3>
+      <p>47 U.S.C. §332(c)(7) — local government <strong>may not</strong> deny or
+        regulate a wireless facility over RF-emission health concerns if it meets
+        FCC limits.</p></div>
+    <div class="card"><h3>FCC "shot clocks"</h3>
+      <p>Localities must act within fixed deadlines — miss them and the
+        application is <strong>deemed granted</strong>.</p></div>
+    <div class="card"><h3>Michigan MCL 125.3514</h3>
+      <p>Wireless siting law — collocations are by-right; new support structures
+        get special-land-use review on a ~90-day clock.</p></div>
+  </div>
+  <p class="sub">Federal preemption does most of the work. The school district's
+    own decision — leasing the ground — is the part that <em>was</em> discretionary.</p>
+</section>
+
+<!-- 10 — OPEN THREADS -->
+<section class="slide">
+  <div class="kicker">Where it goes next</div>
+  <h2>Open threads &amp; FOIA targets</h2>
+  <div class="grid g2">
+    <div class="card"><h3>Troy School District</h3>
+      <p>The executed AT&amp;T ground lease · Attachment B to Resolution 21-064 ·
+        the 2021-06-15 closed-session minutes.</p></div>
+    <div class="card"><h3>City of Troy</h3>
+      <p>Site plan · special-land-use / Planning Commission file · the
+        <strong>building permit</strong> for the cell structure (separate from the
+        Metro Act fiber permit).</p></div>
+    <div class="card"><h3>Confirm ownership</h3>
+      <p>De-redact owner names for all three KEYPINs via the Troy Parcel
+        Information Center.</p></div>
+    <div class="card"><h3>Building permit</h3>
+      <p>Grep the full Troy permits scrape for the tower's <em>building</em> permit —
+        AT&amp;T applicant, parcel 88-20-20-100-003.</p></div>
+  </div>
+</section>
+
+<!-- 11 — METHODS / ARTIFACTS -->
+<section class="slide">
+  <div class="kicker">Reproducibility</div>
+  <h2>Everything here is in the repo</h2>
+  <ul class="files">
+    <li><strong>verify_parcel.py</strong> — deed traverse vs. county polygon</li>
+    <li><strong>crawl_board_meetings.py</strong> — full BoardDocs crawl</li>
+    <li><strong>board_meetings_2021plus.json</strong> — 150 meetings / 1,684 items</li>
+    <li><strong>celltower_hits.json</strong> — 22 keyword-matched items</li>
+    <li><strong>celltower_docs/</strong> — the June-15-2021 packet + minutes</li>
+    <li><strong>boulan_parcels.html</strong> — three-parcel map</li>
+    <li><strong>property_boundaries.html</strong> — deed-vs-GIS map</li>
+    <li><strong>parcel_verification.html</strong> — verification map</li>
+    <li><strong>*.geojson</strong> — geometries for QGIS / Earth</li>
+    <li><strong>troy_permits_metro_act_*.xlsx</strong> — Metro Act permit dataset</li>
+  </ul>
+  <p class="sub">Sources: Oakland County GIS · City of Troy Permits Issued ·
+    Troy School District BoardDocs. Scripts re-run end-to-end from public endpoints.</p>
+  <p class="foot">tsd-celltower · a public-records investigation</p>
+</section>
+
+<nav>
+  <button onclick="go(-1)">‹ Prev</button>
+  <button onclick="go(1)">Next ›</button>
+</nav>
+<div id="counter"></div>
+<div id="hint">← → / space to navigate</div>
+
+<script>
+  var slides = document.querySelectorAll('.slide');
+  var i = 0;
+  function show(n){
+    i = Math.max(0, Math.min(slides.length - 1, n));
+    slides.forEach((s, k) => s.classList.toggle('on', k === i));
+    document.getElementById('bar').style.width =
+      ((i) / (slides.length - 1) * 100) + '%';
+    document.getElementById('counter').textContent =
+      (i + 1) + ' / ' + slides.length;
+    location.hash = i + 1;
+  }
+  function go(d){ show(i + d); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown'){ go(1); e.preventDefault(); }
+    else if (e.key === 'ArrowLeft' || e.key === 'PageUp'){ go(-1); }
+    else if (e.key === 'Home'){ show(0); }
+    else if (e.key === 'End'){ show(slides.length - 1); }
+  });
+  // click left/right third of screen (ignore links, iframes, buttons)
+  document.addEventListener('click', e => {
+    if (e.target.closest('a,button,iframe,nav')) return;
+    go(e.clientX < innerWidth / 3 ? -1 : 1);
+  });
+  var start = parseInt(location.hash.slice(1)) - 1;
+  show(isNaN(start) ? 0 : start);
+</script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Parcel verification - 2020100003</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<style>
+  html,body,#map{height:100%;margin:0}
+  .legend{background:#fff;padding:10px 12px;font:13px/1.4 system-ui,sans-serif;
+    box-shadow:0 1px 5px rgba(0,0,0,.4);border-radius:6px;max-width:300px}
+  .legend b{font-size:13px} .sw{display:inline-block;width:14px;height:14px;
+    vertical-align:-2px;margin-right:6px;border:1px solid #333}
+</style></head><body><div id="map"></div><script>
+var map = L.map('map');
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
+  {maxZoom:21, attribution:'Esri World Imagery'}).addTo(map);
+var data = {"type": "FeatureCollection", "features": [{"type": "Feature", "properties": {"name": "Official parcel (Oakland County)", "kind": "official", "keypin": "2020100003", "site": "3570 NORTHFIELD PKWY", "area_acres": 15.977}, "geometry": {"type": "Polygon", "coordinates": [[[-83.17758714302087, 42.571166346290696], [-83.17764740727065, 42.57251220044994], [-83.179601591608, 42.57246047641194], [-83.17994777921348, 42.57245130466138], [-83.17989027453436, 42.57121714932518], [-83.1798036362366, 42.569364471610506], [-83.17969237181289, 42.569368107583536], [-83.17914835744752, 42.569385882662694], [-83.17881456131448, 42.56939678725462], [-83.1784807624311, 42.56940769189467], [-83.17750403358916, 42.569439591026914], [-83.17750781704387, 42.569520537453926], [-83.17750871993346, 42.56952052896551], [-83.17754016301443, 42.57017884272337], [-83.17758714302087, 42.571166346290696]]]}}, {"type": "Feature", "properties": {"name": "Legal description (reconstructed)", "kind": "legal", "area_acres": 16.0, "misclosure_ft": 0.16}, "geometry": {"type": "Polygon", "coordinates": [[[-83.17750403358916, 42.569439591026914], [-83.17980552866474, 42.56941883952056], [-83.17981648234947, 42.57251143525223], [-83.1775149352975, 42.57251588896301], [-83.17750403358916, 42.569439591026914]]]}}, {"type": "Feature", "properties": {"name": "AT&T cell tower (inspected on site)", "kind": "tower"}, "geometry": {"type": "Point", "coordinates": [-83.177833, 42.57175]}}, {"type": "Feature", "properties": {"name": "Center of Section 20 (derived)", "kind": "center"}, "geometry": {"type": "Point", "coordinates": [-83.1775019888236, 42.56886228453952]}}, {"type": "Feature", "properties": {"name": "Point of Beginning", "kind": "pob"}, "geometry": {"type": "Point", "coordinates": [-83.17750403358916, 42.569439591026914]}}]};
+function style(f){
+  if(f.properties.kind==='official') return {color:'#1e90ff',weight:3,fill:false};
+  if(f.properties.kind==='legal')    return {color:'#ff7f0e',weight:2,fillColor:'#ff7f0e',fillOpacity:0.35};
+}
+L.geoJSON(data,{
+  filter:f=>f.geometry.type==='Polygon',
+  style:style,
+  onEachFeature:(f,l)=>l.bindPopup('<b>'+f.properties.name+'</b>'+
+    (f.properties.area_acres?'<br>area: '+f.properties.area_acres+' ac':''))
+}).addTo(map);
+var icons={tower:'#e6194b',center:'#911eb4',pob:'#3cb44b'};
+L.geoJSON(data,{
+  filter:f=>f.geometry.type==='Point',
+  pointToLayer:(f,ll)=>L.circleMarker(ll,{radius:f.properties.kind==='tower'?8:6,
+    color:'#fff',weight:2,fillColor:icons[f.properties.kind],fillOpacity:1}),
+  onEachFeature:(f,l)=>l.bindPopup('<b>'+f.properties.name+'</b>')
+}).addTo(map);
+map.fitBounds([[42.569364471610506, -83.17994777921348], [42.57251588896301, -83.17750403358916]],{padding:[40,40]});
+var lg=L.control({position:'topright'});
+lg.onAdd=function(){var d=L.DomUtil.create('div','legend');d.innerHTML=
+  '<b>Parcel 2020100003 &mdash; 3570 Northfield Pkwy</b><br>'+
+  '<span class=sw style="background:#ff7f0e"></span>Legal description (reconstructed) &mdash; 16.00 ac<br>'+
+  '<span class=sw style="background:#1e90ff;opacity:.6"></span>Official Oakland County parcel &mdash; 15.98 ac<br>'+
+  '<span class=sw style="background:#e6194b;border-radius:50%"></span>AT&amp;T tower (on-site coords)<br>'+
+  '<span class=sw style="background:#3cb44b;border-radius:50%"></span>Point of Beginning<br>'+
+  '<span class=sw style="background:#911eb4;border-radius:50%"></span>Center of Section 20 (derived)<br>'+
+  '<small>Tower inside legal-description polygon: <b>YES</b></small>';
+  return d;};
+lg.addTo(map);
+</script></body></html>
