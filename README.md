@@ -5,7 +5,7 @@ Investigation into a newly-constructed AT&T cell tower near **Boulan Park** and
 it came to be permitted next to a school and a park.
 
 This folder is a self-contained handoff — open it in Claude Code to continue.
-**See `presentation.html` for a slide-deck summary of everything below.**
+**See `index.html` for a single-page slide-deck summary of everything below.**
 
 ---
 
@@ -82,7 +82,7 @@ overlaid on the official county parcel (see `verify_parcel.py`):
 
 | File | What it is |
 |---|---|
-| `presentation.html` | **Self-contained slide deck** summarizing the whole investigation. Open in a browser; arrow keys / on-screen controls to navigate. |
+| `index.html` | **Self-contained, single-page slide deck** summarizing the whole investigation — also the GitHub Pages entry point. Open in a browser; arrow keys / on-screen controls to navigate. |
 | `verify_parcel.py` | Traces the metes-and-bounds legal description, fetches the official Oakland County parcel geometry, overlays them, checks the tower point. Run: `python3 verify_parcel.py` (needs `requests`). |
 | `parcel_verification.html` | Interactive Leaflet map — legal description shaded orange, official parcel outlined blue, tower / Point-of-Beginning / Section-20 center marked. |
 | `parcel_verification.geojson` | Same geometry as GeoJSON (load in QGIS / Google Earth / geojson.io). |
