@@ -61,6 +61,27 @@ north (wooded) end of the site. The 10-document June-15 packet is in
 resolution's "Attachment B (General Parameters of Lease Agreement)" was never
 uploaded, and the financials were likely settled in the June-15 closed session.
 
+**The lease revenue — traced through every public financial record, not found.**
+The amount Troy School District receives does not appear in any public financial
+document:
+- **Check register, FY11–FY26** (sibling project `~/Downloads/tsd-checkregister/`)
+  — 224,267 line items. AT&T appears 6,519 times but only as a *vendor being
+  paid* (~$700K total, for phone/data service). A check register records
+  disbursements only — it has no revenue side.
+- **Monthly Treasurer's Reports** — all 64 (Nov 2020 → Feb 2026) located on
+  BoardDocs; their "Financial Statements" PDF reports revenue only as fund-level
+  aggregates (Local / State / Federal Sources), with no account-level detail.
+- **ACFRs FY21–FY25** (in `~/Downloads/tsd-budget/boarddocs/`) — no mention of
+  AT&T / Cingular / cell tower / antenna in any year; the District reports
+  GASB 87 leases *only as a lessee*, never as a lessor. The one dedicated
+  **Facility Rentals Fund (535)** — "moneys generated from the rental of various
+  facilities" — showed **$117,508** of (mixed) rental revenue in FY22, then was
+  **dropped from ACFR reporting FY23+**, folding facility-rental income into the
+  General Fund's un-itemized "Local Sources."
+
+→ The revenue is structurally invisible in public financial reporting; it can
+only be obtained by FOIA (see Open threads).
+
 **Legal-description verification.** The deed legal description —
 `T2N R11E SEC 20, PART OF SE 1/4 OF NW 1/4, BEG ... 16 A` — was traced and
 overlaid on the official county parcel (see `verify_parcel.py`):
@@ -104,12 +125,15 @@ overlaid on the official county parcel (see `verify_parcel.py`):
 2. **~~Find the board approval.~~ ✅ DONE** — Resolution 21-064, approved
    2021-06-15 on a 4–2 vote. See `crawl_board_meetings.py` and `celltower_docs/`.
    The remaining gap is the **money**: get the lease's dollar terms (next item).
-3. **Get the lease revenue / terms — FOIA.** The Board resolution authorizes the
-   lease but its "Attachment B (General Parameters of Lease Agreement)" was never
-   posted to BoardDocs, and no dollar figure appears anywhere in the public
-   packet or minutes. FOIA Troy School District for **(a)** the executed AT&T
-   ground lease, **(b)** Attachment B to Resolution 21-064, and **(c)** the
-   2021-06-15 closed-session minutes (the BoardDocs closed-session file 404s).
+3. **Get the lease revenue / terms — FOIA.** The dollar figure is *not* in any
+   public record — not the resolution packet, not the minutes, not the FY11–FY26
+   check register, not the 64 monthly Treasurer's Reports, not the FY21–FY25
+   ACFRs (see "What's been established"). FOIA Troy School District for
+   **(a)** the executed AT&T ground lease, **(b)** Attachment B to Resolution
+   21-064, **(c)** the 2021-06-15 closed-session minutes (the BoardDocs
+   closed-session file 404s), and — the sharpest single ask — **(d)** the
+   general-ledger account history (FY21–FY26) for the revenue object code the
+   AT&T lease posts to, which yields both the amount *and* the commencement date.
 4. **FOIA targets (City side).** City of Troy: site plan, special-land-use /
    Planning Commission file, and the **building permit** for the AT&T cell
    structure (separate from the Metro Act fiber permit).
